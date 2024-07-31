@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'style/home.css' %}">
+</head>
+<body>
+    
+    <img src="{% static 'images/bg.png' %}" alt="" class="bg">
+
+    <div class="up">
+        <h1>مرحبا , {{c_user.full_name}}</h1>
+        <a href="{% url 'logout' %}">تسجيل الخروج</a>
+    </div>
+
+    <div class="content">
+
+        <div class="link">
+            <p>web socket link : {{c_user.room.url}} </p>
+            <button id="copyLink" data-link="LINK_HERE">نسخ</button>
+        </div>
+
+        <div class="boxes">
+            
+            <div class="box">
+                <p>اجمالي الرسائل علي النظام</p>
+                <h3>{{c_user.room.msgs}}</h3>
+            </div>
+            
+            <div class="box">
+                <p>اجمالي المستخدمين علي النظام</p>
+                <h3>{{c_user.room.users}}</h3>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var copyBtn = document.getElementById('copyLink');
+
+        copyBtn.addEventListener('click', function(){
+            navigator.clipboard.writeText(copyBtn.dataset.link);
+            alert('تم النسخ')
+        })
+    </script>
+</body>
+</html>
